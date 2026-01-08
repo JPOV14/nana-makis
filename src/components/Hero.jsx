@@ -20,6 +20,12 @@ export default function Hero() {
       <div className="heroContent">
         <h1>Makis Nikkei delivery</h1>
         <p>Hechos al momento · {BRAND.deliveryTime} · {BRAND.zones}</p>
+        <div className="badgeRow">
+            <span className="badge">Hecho al momento</span>
+            <span className="badge">30–45 min</span>
+            <span className="badge">Callao · La Perla · La Punta · San Miguel</span>
+            </div>
+
 
         <div className="heroActions">
           <a
