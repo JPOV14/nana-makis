@@ -331,3 +331,33 @@ p { margin: 0; opacity: .9; }
 .qtyBtnSub{
   background: rgba(255,255,255,.08);
 }
+
+
+/* ===== HOTFIX UX: botones deshabilitados deben verse deshabilitados ===== */
+.btn:disabled{
+  opacity: .35;
+  cursor: not-allowed;
+  box-shadow: none !important;
+}
+
+.btnPrimary:disabled{
+  background: rgba(255,255,255,.14) !important;
+  color: rgba(255,255,255,.70) !important;
+  border-color: rgba(255,255,255,.14) !important;
+}
+
+/* por si el teléfono “aplana” el disabled */
+button:disabled{
+  opacity: .35;
+}
+
+/* ===== HOTFIX: placeholder de combos menos alto (no se ve “muerto”) ===== */
+.cardImgFallback.isCombo{
+  height: 140px;
+  align-content: center;
+}
+
+/* seguridad: más espacio abajo por el carrito fijo */
+.pageWithCartBar{
+  padding-bottom: 220px;
+}

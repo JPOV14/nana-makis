@@ -10,8 +10,7 @@ export default function TopMakis() {
 
   const fmt = (n) => new Intl.NumberFormat("es-PE").format(n);
 
-  const add = (p) =>
-    setCart((prev) => ({ ...prev, [p.id]: (prev[p.id] || 0) + 1 }));
+  const add = (p) => setCart((prev) => ({ ...prev, [p.id]: (prev[p.id] || 0) + 1 }));
 
   const remove = (p) =>
     setCart((prev) => {
@@ -51,11 +50,10 @@ export default function TopMakis() {
 
   const Card = ({ p, kind = "maki" }) => {
     const qty = cart[p.id] || 0;
-    const [imgOk, setImgOk] = useState(!!p.img);
+    const [imgOk, setImgOk] = useState(Boolean(p.img));
 
     return (
       <div className="card" key={p.id}>
-        {/* Imagen o fallback (evita “bloque muerto” si no hay imagen / falla) */}
         {imgOk ? (
           <div className="cardImgWrap">
             <img
@@ -72,10 +70,12 @@ export default function TopMakis() {
             />
           </div>
         ) : (
-          <div className="cardImgFallback" aria-hidden="true">
+          // ✅ FIX: en combos ya NO repetimos el nombre arriba (evita "Combo 1 persona" duplicado)
+          <div className={`cardImgFallback ${kind === "combo" ? "isCombo" : ""}`} aria-hidden="true">
             <div className="cardImgFallbackBadge">{kind === "combo" ? "COMBO" : "TOP"}</div>
-            <div className="cardImgFallbackTitle">{p.name}</div>
-            <div className="cardImgFallbackSub">Hecho al momento</div>
+            <div className="cardImgFallbackSub">
+              {kind === "combo" ? "Foto real en camino" : "Hecho al momento"}
+            </div>
           </div>
         )}
 
