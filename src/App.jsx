@@ -6,21 +6,20 @@ import Combos from "./components/Combos";
 import Differentials from "./components/Differentials";
 import DeliveryInfo from "./components/DeliveryInfo";
 import Reviews from "./components/Reviews";
-import StickyCTA from "./components/StickyCTA";
 
 export default function App() {
   return (
     <>
       <Header />
-      <main>
+      <main className="pageWithCartBar">
         <Hero />
         <TopMakis />
-        <Combos />
-        <Differentials />
+        
         <DeliveryInfo />
         <Reviews />
+        <Differentials />
+        
       </main>
-      <StickyCTA />
     </>
   );
 }

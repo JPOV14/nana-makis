@@ -34,9 +34,6 @@ p { margin: 0; opacity: .9; }
   background-position: 50% 55%;
 }
 
-
-
-
 .heroContent {
   padding: 14px;
   margin-top: -250px;
@@ -49,12 +46,11 @@ p { margin: 0; opacity: .9; }
 .grid { display:grid; grid-template-columns: 1fr; gap: 12px; }
 .card { border: 1px solid rgba(255,255,255,.12); border-radius: 16px; overflow:hidden; background: rgba(255,255,255,.04); }
 .cardImg{
-  height: 244px;              /* prueba 150–170 */
+  height: 244px;
   background-size: cover;
-  background-position: center; /* punto de recorte */
+  background-position: center;
   background-repeat: no-repeat;
 }
-
 
 .cardBody { padding: 12px; }
 .cardTitle { font-weight: 900; }
@@ -65,24 +61,14 @@ p { margin: 0; opacity: .9; }
 .list { margin: 10px 0 0; padding-left: 18px; opacity: .9; }
 .infoBox { border: 1px solid rgba(255,255,255,.12); border-radius: 14px; padding: 12px; background: rgba(255,255,255,.04); }
 
-.stickyCta {
-  position: fixed; left: 0; right: 0; bottom: 0;
-  padding: 10px 12px;
-  background: rgba(0,0,0,.75);
-  backdrop-filter: blur(10px);
-  border-top: 1px solid rgba(255,255,255,.12);
-}
-.stickyCta .btn { width: 100%; }
-
 @media (min-width: 860px) {
   .grid { grid-template-columns: repeat(3, 1fr); }
   .heroImg { height: 68vh; }
-  .stickyCta { display: none; }
 }
 
 .cardImgWrap{
-  height: 200px;          /* tamaño FIJO de la caja */
-  overflow: hidden;      /* 🔥 CLIPPEA la imagen */
+  height: 200px;
+  overflow: hidden;
   border-radius: 16px 16px 0 0;
 }
 
@@ -93,9 +79,8 @@ p { margin: 0; opacity: .9; }
   display: block;
 }
 
-
 .logo{
-  height: 44px;   /* controla el tamaño del logo */
+  height: 44px;
   width: auto;
   display: block;
 }
@@ -113,18 +98,99 @@ p { margin: 0; opacity: .9; }
   height: auto;
   z-index: 10;
 
-  /* magia visual */
-  border-radius: 22px;                     /* suaviza bordes */
-  background: rgba(0,0,0,.35);              /* integra con la foto */
+  border-radius: 22px;
+  background: rgba(0,0,0,.35);
   padding: 10px;
 
   box-shadow:
-    0 12px 30px rgba(0,0,0,.55),             /* profundidad */
-    inset 0 0 0 1px rgba(255,255,255,.15);  /* borde fino elegante */
+    0 12px 30px rgba(0,0,0,.55),
+    inset 0 0 0 1px rgba(255,255,255,.15);
 
-  backdrop-filter: blur(6px);               /* efecto glass */
+  backdrop-filter: blur(6px);
 }
 
+.orderForm{
+  background: #0f0f0f;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 16px;
+  padding: 16px;
+  display: grid;
+  gap: 10px;
+}
 
+.orderForm input{
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
 
+.orderForm h3{
+  margin: 0 0 6px;
+}
 
+/* ===== Modal del formulario ===== */
+.modalBackdrop{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.70);
+  backdrop-filter: blur(6px);
+  display: grid;
+  place-items: center;
+  z-index: 999;
+  padding: 16px;
+}
+
+.modalCard{
+  width: min(520px, 100%);
+}
+
+/* ====== FIX REAL: el carrito (miniCart) SIEMPRE visible y sin corte ====== */
+
+/* espacio para que el carrito fijo no tape cards/combos */
+.pageWithCartBar {
+  padding-bottom: 140px;
+}
+
+/* este es TU carrito real (Vacío / Limpiar / Finalizar pedido) */
+.miniCart{
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 12px;
+
+  width: min(980px, calc(100% - 24px));
+  z-index: 9999;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap: 12px;
+
+  margin: 0;                 /* 🔥 fuera el margin que “corta” */
+  padding: 12px;
+
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 16px;
+  background: rgba(15,15,15,.92);
+  backdrop-filter: blur(10px);
+
+  box-sizing: border-box;
+}
+
+.miniCartTitle{ font-weight: 900; }
+.miniCartMeta{ opacity: .85; margin-top: 2px; font-size: 14px; }
+.miniCartRight{ display:flex; gap: 10px; flex-wrap: wrap; }
+
+/* ===== Cantidad por item ===== */
+.qtyBox{
+  display:flex;
+  align-items:center;
+  gap: 8px;
+}
+.qtyNum{
+  min-width: 24px;
+  text-align:center;
+  font-weight: 900;
+}

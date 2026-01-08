@@ -51,25 +51,8 @@ export const REVIEWS = [
 ];
 
 export const COMBOS = [
-  {
-    id: "combo-1p",
-    name: "Combo 1 persona",
-    desc: "25 piezas · Básico (langostino)",
-    price: 0,
-    img: "/combos/combo-1p.jpg",
-  },
-  {
-    id: "combo-2p",
-    name: "Combo 2 personas",
-    desc: "30 piezas · Mixto (Básico + 1 Premium)",
-    price: 0,
-    img: "/combos/combo-2p.jpg",
-  },
-  {
-    id: "combo-4p",
-    name: "Combo 4 personas",
-    desc: "40 piezas · Mixto (Básico + Premium)",
-    price: 0,
-    img: "/combos/combo-4p.jpg",
-  },
+  { id: "combo-1p", name: "Combo 1 persona", desc: "25 piezas · Básico (langostino)", price: 45, img: "/combos/combo-1p.jpg" },
+  { id: "combo-2p", name: "Combo 2 personas", desc: "30 piezas · Mixto", price: 59, img: "/combos/combo-2p.jpg" },
+  { id: "combo-4p", name: "Combo 4 personas", desc: "40 piezas · Mixto", price: 89, img: "/combos/combo-4p.jpg" },
 ];
+

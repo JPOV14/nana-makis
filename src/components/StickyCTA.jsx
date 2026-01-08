@@ -6,7 +6,12 @@ export default function StickyCTA() {
 
   return (
     <div className="stickyCta">
-      <a className="btn btnPrimary" href={waLink(BRAND.whatsapp, msg)} target="_blank" rel="noreferrer">
+      <a
+        className="btn btnPrimary"
+        href={waLink(BRAND.whatsapp, msg)}
+        target="_blank"
+        rel="noreferrer"
+      >
         📲 Pedir por WhatsApp
       </a>
     </div>
