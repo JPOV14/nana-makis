@@ -19,10 +19,36 @@ a { color: inherit; text-decoration: none; }
 h1,h2 { margin: 0 0 10px; }
 p { margin: 0; opacity: .9; }
 
-.btn { display:inline-flex; align-items:center; justify-content:center; padding: 12px 14px; border-radius: 12px; font-weight: 800; }
-.btnPrimary { background:#f2f2f2; color:#0b0b0b; }
-.btnGhost { border: 1px solid rgba(255,255,255,.2); }
-.btnSmall { padding: 10px 12px; border-radius: 10px; background: rgba(255,255,255,.12); }
+.sectionSub{
+  margin-top: -4px;
+  margin-bottom: 12px;
+  opacity: .82;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.btn {
+  display:inline-flex; align-items:center; justify-content:center;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-weight: 800;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.06);
+}
+.btnPrimary {
+  background:#f2f2f2; color:#0b0b0b;
+  border: 1px solid rgba(255,255,255,.35);
+  box-shadow: 0 10px 24px rgba(0,0,0,.35);
+}
+.btnGhost { border: 1px solid rgba(255,255,255,.2); background: transparent; }
+.btnSmall {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.14);
+}
+
+.btn:active { transform: translateY(1px); }
 
 .hero { position: relative; }
 .heroImg{
@@ -44,7 +70,23 @@ p { margin: 0; opacity: .9; }
 .heroActions { display:flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
 
 .grid { display:grid; grid-template-columns: 1fr; gap: 12px; }
-.card { border: 1px solid rgba(255,255,255,.12); border-radius: 16px; overflow:hidden; background: rgba(255,255,255,.04); }
+
+.card {
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 16px;
+  overflow:hidden;
+  background: rgba(255,255,255,.04);
+  transition: transform .12s ease, border-color .12s ease, background .12s ease;
+}
+.card:active { transform: scale(.99); }
+
+@media (hover:hover){
+  .card:hover{
+    border-color: rgba(255,255,255,.22);
+    background: rgba(255,255,255,.06);
+  }
+}
+
 .cardImg{
   height: 244px;
   background-size: cover;
@@ -53,10 +95,12 @@ p { margin: 0; opacity: .9; }
 }
 
 .cardBody { padding: 12px; }
-.cardTitle { font-weight: 900; }
-.cardDesc { opacity: .85; margin-top: 6px; line-height: 1.3; }
-.cardRow { display:flex; align-items:center; justify-content:space-between; margin-top: 12px; }
-.price { font-weight: 900; }
+.cardTitle { font-weight: 900; font-size: 18px; letter-spacing: .1px; }
+.cardDesc { opacity: .85; margin-top: 6px; line-height: 1.35; font-size: 14px; }
+
+.cardRow { display:flex; align-items:center; justify-content:space-between; margin-top: 12px; gap: 10px; }
+
+.price { font-weight: 1000; font-size: 20px; letter-spacing: .2px; }
 
 .list { margin: 10px 0 0; padding-left: 18px; opacity: .9; }
 .infoBox { border: 1px solid rgba(255,255,255,.12); border-radius: 14px; padding: 12px; background: rgba(255,255,255,.04); }
@@ -77,6 +121,36 @@ p { margin: 0; opacity: .9; }
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.cardImgFallback{
+  height: 200px;
+  display: grid;
+  align-content: end;
+  gap: 6px;
+  padding: 14px;
+  background:
+    radial-gradient(1200px 280px at 20% 0%, rgba(255,255,255,.12), transparent 55%),
+    linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  border-radius: 16px 16px 0 0;
+}
+.cardImgFallbackBadge{
+  width: fit-content;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: .6px;
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.16);
+}
+.cardImgFallbackTitle{
+  font-weight: 1000;
+  font-size: 18px;
+}
+.cardImgFallbackSub{
+  opacity: .8;
+  font-size: 13px;
 }
 
 .logo{
@@ -146,14 +220,12 @@ p { margin: 0; opacity: .9; }
   width: min(520px, 100%);
 }
 
-/* ====== FIX REAL: el carrito (miniCart) SIEMPRE visible y sin corte ====== */
-
-/* espacio para que el carrito fijo no tape cards/combos */
+/* espacio para que el carrito fijo no tape contenido */
 .pageWithCartBar {
-  padding-bottom: 140px;
+  padding-bottom: 150px;
 }
 
-/* este es TU carrito real (Vacío / Limpiar / Finalizar pedido) */
+/* carrito fijo */
 .miniCart{
   position: fixed;
   left: 50%;
@@ -168,29 +240,94 @@ p { margin: 0; opacity: .9; }
   align-items:center;
   gap: 12px;
 
-  margin: 0;                 /* 🔥 fuera el margin que “corta” */
+  margin: 0;
   padding: 12px;
 
   border: 1px solid rgba(255,255,255,.12);
   border-radius: 16px;
   background: rgba(15,15,15,.92);
   backdrop-filter: blur(10px);
+  box-shadow: 0 16px 40px rgba(0,0,0,.45);
 
   box-sizing: border-box;
 }
 
-.miniCartTitle{ font-weight: 900; }
-.miniCartMeta{ opacity: .85; margin-top: 2px; font-size: 14px; }
-.miniCartRight{ display:flex; gap: 10px; flex-wrap: wrap; }
+.miniCartTitle{ font-weight: 1000; }
+.miniCartMeta{
+  opacity: .90;
+  margin-top: 2px;
+  font-size: 14px;
+}
+.miniCartMeta.isEmpty{ opacity: .70; }
 
-/* ===== Cantidad por item ===== */
+.miniCartTop{ display:flex; flex-direction:column; }
+.miniCartActions{ display:flex; gap: 10px; flex-wrap: wrap; }
+
+@media (max-width: 520px){
+  .miniCart{
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .miniCartTop{
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .miniCartMeta{
+    margin-top: 0;
+    white-space: nowrap; /* evita “Total S/” en una línea y número abajo */
+  }
+
+  .miniCartActions .btn{
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+/* Stepper premium: + visible (hambre + acción rápida) */
 .qtyBox{
   display:flex;
   align-items:center;
-  gap: 8px;
+  gap: 10px;
+  padding: 6px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
 }
+
 .qtyNum{
-  min-width: 24px;
+  min-width: 28px;
   text-align:center;
-  font-weight: 900;
+  font-weight: 1000;
+  font-size: 16px;
+}
+
+.qtyBtn{
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.10);
+  color: #f2f2f2;
+  font-size: 20px;
+  font-weight: 1000;
+  display: inline-grid;
+  place-items: center;
+}
+
+.qtyBtn:active{ transform: scale(.98); }
+.qtyBtn:disabled{ opacity: .35; }
+
+.qtyBtnAdd{
+  background: #f2f2f2;
+  color: #0b0b0b;
+  border: 1px solid rgba(255,255,255,.35);
+}
+
+.qtyBtnSub{
+  background: rgba(255,255,255,.08);
 }
