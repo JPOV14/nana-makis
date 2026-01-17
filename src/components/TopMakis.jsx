@@ -1,16 +1,27 @@
 import { useMemo, useState } from "react";
 import { TOP_MAKIS, COMBOS } from "../data/menu";
 import OrderForm from "./OrderForm";
+import TopPedidosHoy from "./TopPedidosHoy";
 
 export default function TopMakis() {
   const ALL = [...TOP_MAKIS, ...COMBOS];
 
   const [open, setOpen] = useState(false);
-  const [cart, setCart] = useState({}); // { id: qty }
+  const [cart, setCart] = useState({});
+  const [pulseId, setPulseId] = useState(null); // 👈 para animar el +
 
   const fmt = (n) => new Intl.NumberFormat("es-PE").format(n);
 
-  const add = (p) => setCart((prev) => ({ ...prev, [p.id]: (prev[p.id] || 0) + 1 }));
+  // 👉 ADD con feedback visual
+  const add = (p) => {
+    setCart((prev) => ({ ...prev, [p.id]: (prev[p.id] || 0) + 1 }));
+    setPulseId(p.id);
+
+    clearTimeout(window.__pulseTimer);
+    window.__pulseTimer = setTimeout(() => {
+      setPulseId(null);
+    }, 220);
+  };
 
   const remove = (p) =>
     setCart((prev) => {
@@ -37,7 +48,10 @@ export default function TopMakis() {
   const pedidoTxt = useMemo(() => {
     if (!items.length) return "";
     return items
-      .map((it) => `- ${it.name} x${it.qty} (S/ ${fmt(it.price)} c/u) = S/ ${fmt(it.lineTotal)}`)
+      .map(
+        (it) =>
+          `- ${it.name} x${it.qty} (S/ ${fmt(it.price)} c/u) = S/ ${fmt(it.lineTotal)}`
+      )
       .join("\n");
   }, [items]);
 
@@ -64,15 +78,18 @@ export default function TopMakis() {
               onError={() => setImgOk(false)}
               style={{
                 objectPosition: p.imgPos || "50% 50%",
-                transform: `translate(${p.moveX || 0}px, ${p.moveY || 0}px) scale(${p.scale || 1}) rotate(${p.rotate || 0}deg)`,
-                transformOrigin: "center",
+                transform: `translate(${p.moveX || 0}px, ${p.moveY || 0}px) scale(${p.scale || 1})`,
               }}
             />
           </div>
         ) : (
-          // ✅ FIX: en combos ya NO repetimos el nombre arriba (evita "Combo 1 persona" duplicado)
-          <div className={`cardImgFallback ${kind === "combo" ? "isCombo" : ""}`} aria-hidden="true">
-            <div className="cardImgFallbackBadge">{kind === "combo" ? "COMBO" : "TOP"}</div>
+          <div
+            className={`cardImgFallback ${kind === "combo" ? "isCombo" : ""}`}
+            aria-hidden="true"
+          >
+            <div className="cardImgFallbackBadge">
+              {kind === "combo" ? "COMBO" : "TOP"}
+            </div>
             <div className="cardImgFallbackSub">
               {kind === "combo" ? "Foto real en camino" : "Hecho al momento"}
             </div>
@@ -86,26 +103,25 @@ export default function TopMakis() {
           <div className="cardRow">
             <div className="price">S/ {fmt(p.price)}</div>
 
-            <div className="qtyBox" aria-label={`Cantidad de ${p.name}`}>
+            <div className="qtyBox">
               <button
                 type="button"
                 className="qtyBtn qtyBtnSub"
                 onClick={() => remove(p)}
                 disabled={!qty}
-                aria-label={`Quitar ${p.name}`}
               >
                 −
               </button>
 
-              <div className="qtyNum" aria-label="Cantidad actual">
-                {qty}
-              </div>
+              <div className="qtyNum">{qty}</div>
 
+              {/* 👇 BOTÓN + con pulse */}
               <button
                 type="button"
-                className="qtyBtn qtyBtnAdd"
+                className={`qtyBtn qtyBtnAdd ${
+                  pulseId === p.id ? "isPulse" : ""
+                }`}
                 onClick={() => add(p)}
-                aria-label={`Agregar ${p.name}`}
               >
                 +
               </button>
@@ -119,22 +135,29 @@ export default function TopMakis() {
   return (
     <section className="section" id="carta">
       <h2>⭐ Top Makis</h2>
-      <p className="sectionSub">Los más pedidos hoy. Toca “+” y arma tu pedido en segundos.</p>
+
+      <TopPedidosHoy cart={cart} add={add} remove={remove} />
+
+      <p className="sectionSub">
+        Los más pedidos hoy. Toca “+” y arma tu pedido en segundos.
+      </p>
 
       {/* Mini carrito fijo */}
       <div className="miniCart">
         <div className="miniCartTop">
           <div className="miniCartTitle">Carrito</div>
           <div className={`miniCartMeta ${count ? "" : "isEmpty"}`}>
-            {count ? `${count} item(s) · S/ ${fmt(total)}` : "Agrega 1 producto para continuar"}
+            {count
+              ? `${count} item(s) · S/ ${fmt(total)}`
+              : "Agrega 1 producto para continuar"}
           </div>
         </div>
 
         <div className="miniCartActions">
-          <button type="button" className="btn btnSmall" onClick={clear} disabled={!count}>
+          <button className="btn btnSmall" onClick={clear} disabled={!count}>
             Limpiar
           </button>
-          <button type="button" className="btn btnPrimary" onClick={openForm} disabled={!count}>
+          <button className="btn btnPrimary" onClick={openForm} disabled={!count}>
             Finalizar pedido
           </button>
         </div>
@@ -158,7 +181,9 @@ export default function TopMakis() {
 
       {/* Combos */}
       <h2 style={{ marginTop: 18 }}>🔥 Combos</h2>
-      <p className="sectionSub">Para decidir rápido: combos listos para compartir.</p>
+      <p className="sectionSub">
+        Para decidir rápido: combos listos para compartir.
+      </p>
 
       <div className="grid">
         {COMBOS.map((c) => (

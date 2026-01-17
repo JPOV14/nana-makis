@@ -1,8 +1,8 @@
 export const BRAND = {
-  name: "Naná Makis - Makis Nikkei delivery en Callao",
-  whatsapp: "51986384033",
+  name: "Naná Makis - Makis Nikkei delivery",
+  whatsapp: "51951036857",
   deliveryTime: "30–45 min",
-  zones: "Callao (provincia), La Perla, La Punta + San Miguel",
+  zones: "Cerado Callao · Bellavista · La Perla · La Punta · San Miguel",
   schedule: "Lun–Dom 6:00pm–11:00pm",
 };
 

@@ -423,3 +423,82 @@ button:disabled{
   background: rgba(255,255,255,.06);
   opacity: .95;
 }
+
+/* ===== TOP PEDIDOS HOY ===== */
+
+.gridFeatured {
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.featuredCard {
+  border: 2px solid rgba(255,255,255,.18);
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,.08),
+    rgba(255,255,255,.02)
+  );
+}
+
+.featuredCard .cardTitle {
+  font-size: 18px;
+}
+
+.featuredCard .price {
+  font-size: 18px;
+}
+
+@media (min-width: 860px) {
+  .gridFeatured {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ===== Feedback visual al sumar (+) ===== */
+
+.btnAdd {
+  position: relative;
+  transition: transform 120ms ease, filter 120ms ease;
+}
+
+/* sensación de click inmediato */
+.btnAdd:active {
+  transform: scale(0.97);
+}
+
+/* ===== Pulse del botón + ===== */
+.qtyBtnAdd.isPulse {
+  animation: pulseAdd 220ms ease-out;
+}
+
+@keyframes pulseAdd {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+
+/* en desktop lo ocultamos (porque ya tienes carrito fijo) */
+@media (min-width: 860px){
+  .stickyCtaSmart{ display:none; }
+}
+
+
+.stickyCta{
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 14px;
+
+  width: min(980px, calc(100% - 24px));
+  z-index: 9998;
+
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.stickyCta .btn{
+  width: 100%;
+  border-radius: 16px;
+  padding: 14px 16px;
+}

@@ -18,12 +18,12 @@ export default function Hero() {
 
       {/* contenido */}
       <div className="heroContent">
-        <h1>Makis Nikkei delivery</h1>
+        <h1>Naná Makis - Makis Nikkei</h1>
         <p>Hechos al momento · {BRAND.deliveryTime} · {BRAND.zones}</p>
         <div className="badgeRow">
             <span className="badge">Hecho al momento</span>
             <span className="badge">30–45 min</span>
-            <span className="badge">Callao · La Perla · La Punta · San Miguel</span>
+            <span className="badge">Cerado Callao · Bellavista · La Perla · La Punta · San Miguel</span>
             </div>
 
 

@@ -11,9 +11,7 @@ export default function Header() {
             <img src="/logo.png" alt="Naná Makis" className="logo" />
             </a>
 
-        <a className="btn btnPrimary" href={waLink(BRAND.whatsapp, msg)} target="_blank" rel="noreferrer">
-          WhatsApp
-        </a>
+        
       </div>
     </header>
   );
